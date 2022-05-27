@@ -10,8 +10,8 @@ data class Task(
     val deadline: Deadline,
     val finishingTime: Int? = null,
     //recurred tasks
-    val countOfRepeats: Int? = BASE_REPEATS_COUNT,
-    val countOfRepeatsDone: Int? = NO_REPEATS,
+    val countOfRepeats: Int = BASE_REPEATS_COUNT,
+    val countOfRepeatsDone: Int = NO_REPEATS,
     //timed tasks
     val plannedTime: Int? = null,
     val spentTime: Int? = null,
