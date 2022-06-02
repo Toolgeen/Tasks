@@ -3,7 +3,6 @@ package com.abdykadyr.tasks.data.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
 @Entity(tableName = "tasks_table")
 data class TaskDbModel(
 
@@ -16,11 +15,11 @@ data class TaskDbModel(
     val finishingTime: Int? = null,
     //recurred tasks
     val countOfRepeats: Int,
-    val countOfRepeatsDone: Int,
+    var countOfRepeatsDone: Int,
     //timed tasks
     val plannedTime: Int? = null,
-    val spentTime: Int? = null,
-    @PrimaryKey
+    var spentTime: Int? = null,
+    @PrimaryKey(autoGenerate = true)
     val id: Int
 
 )

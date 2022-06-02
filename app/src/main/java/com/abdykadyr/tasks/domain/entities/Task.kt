@@ -11,10 +11,10 @@ data class Task(
     val finishingTime: Int? = null,
     //recurred tasks
     val countOfRepeats: Int = BASE_REPEATS_COUNT,
-    val countOfRepeatsDone: Int = NO_REPEATS,
+    var countOfRepeatsDone: Int = NO_REPEATS,
     //timed tasks
     val plannedTime: Int? = null,
-    val spentTime: Int? = null,
+    var spentTime: Int? = null,
 
     val id: Int = ID_UNDEFINED
 
@@ -23,7 +23,7 @@ data class Task(
     companion object {
         private const val BASE_REPEATS_COUNT = 1
         private const val NO_REPEATS = 0
-        private const val ID_UNDEFINED = -1
+        private const val ID_UNDEFINED = 0
     }
 
 }
