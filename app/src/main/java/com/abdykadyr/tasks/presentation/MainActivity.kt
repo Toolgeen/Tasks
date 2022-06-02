@@ -1,9 +1,8 @@
-package com.abdykadyr.tasks
+package com.abdykadyr.tasks.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.abdykadyr.tasks.domain.entities.Deadline
-
+import com.abdykadyr.tasks.R
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
