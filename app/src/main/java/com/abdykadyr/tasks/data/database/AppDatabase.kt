@@ -21,7 +21,6 @@ abstract class AppDatabase : RoomDatabase() {
             synchronized(LOCK) {
                 db?.let { return it }
                 val instance = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
-                    .addTypeConverter(Converters::class)
                     .build()
                 db = instance
                 return instance

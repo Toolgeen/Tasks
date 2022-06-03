@@ -3,11 +3,9 @@ package com.abdykadyr.tasks.domain.entities
 data class Task(
 
     //base tasks
-    val name: String,
     val description: String,
     val category: String,
     val creationTime: Int,
-    val deadline: Deadline,
     val finishingTime: Int? = null,
     //recurred tasks
     val countOfRepeats: Int = BASE_REPEATS_COUNT,

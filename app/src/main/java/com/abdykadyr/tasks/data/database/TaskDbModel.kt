@@ -7,11 +7,9 @@ import androidx.room.PrimaryKey
 data class TaskDbModel(
 
     //base tasks
-    val name: String,
     val description: String,
     val category: String,
     val creationTime: Int,
-    val deadline: DeadlineDbModel,
     val finishingTime: Int? = null,
     //recurred tasks
     val countOfRepeats: Int,
