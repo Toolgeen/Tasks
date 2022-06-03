@@ -17,39 +17,27 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="center">
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switchDayTasks"
+            android:id="@+id/switchDoneTasks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="день"
+            android:text="Завершенные"
             android:layout_gravity="end"/>
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switchWeekTasks"
+            android:id="@+id/switchTasks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="неделя"
-            android:layout_gravity="end"/>
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switchMonthTasks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="месяц"
-            android:layout_gravity="end"/>
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switchYearTasks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="год"
+            android:text="В работе"
             android:layout_gravity="end"/>
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTaskList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/task_item"/>
