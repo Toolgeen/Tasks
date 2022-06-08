@@ -21,7 +21,7 @@ data class Task(
     companion object {
         const val BASE_REPEATS_COUNT = 1
         private const val NO_REPEATS = 0
-        private const val ID_UNDEFINED = 0
+        const val ID_UNDEFINED = 0
     }
 
 }

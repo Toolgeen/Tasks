@@ -46,7 +46,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="На день" />
+            tools:text="Категория" />
 
         <TextView
             android:id="@+id/tvTaskTitle"
@@ -95,7 +95,7 @@
             app:layout_constraintTop_toTopOf="@id/progressBar"
             app:layout_constraintBottom_toBottomOf="@id/progressBar"
             android:layout_marginStart="10dp"
-            android:text="+"
+            android:text="@string/plus"
             android:textSize="20sp"/>
 
         <Button
@@ -106,7 +106,7 @@
             app:layout_constraintBottom_toBottomOf="@id/progressBar"
             app:layout_constraintEnd_toStartOf="@id/progressBar"
             android:layout_marginEnd="10dp"
-            android:text="-"
+            android:text="@string/minus"
             android:textSize="20sp"/>
 
         <Button
