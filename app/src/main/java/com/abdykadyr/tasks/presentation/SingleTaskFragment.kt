@@ -40,8 +40,42 @@ class SingleTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.etTime.setOnClickListener {  }
-        binding.etDate.setOnClickListener {  }
+        binding.switchDeadline.setOnCheckedChangeListener { _, b ->
+            if (b) {
+                with(binding) {
+                    tvDeadlineTitle.visibility = View.VISIBLE
+                    etTime.visibility = View.VISIBLE
+                    etDate.visibility = View.VISIBLE
+                }
+            } else {
+                with(binding) {
+                    tvDeadlineTitle.visibility = View.GONE
+                    etTime.visibility = View.GONE
+                    etDate.visibility = View.GONE
+                }
+            }
+        }
+        binding.switchRepeats.setOnCheckedChangeListener { _, b ->
+            if (b) {
+                binding.etRepeats.visibility = View.VISIBLE
+
+            } else {
+                binding.etRepeats.visibility = View.GONE
+            }
+        }
+
+        binding.switchTimer.setOnCheckedChangeListener { _, b ->
+            if (b) {
+                binding.tvTimerTitle.visibility = View.VISIBLE
+                binding.etTimer.visibility = View.VISIBLE
+
+            } else {
+                binding.tvTimerTitle.visibility = View.GONE
+                binding.etTimer.visibility = View.GONE
+            }
+        }
+        binding.etTime.setOnClickListener { showTimePickerDialog(it) }
+        binding.etDate.setOnClickListener { showDatePickerDialog(it) }
     }
 
     override fun onDestroy() {
