@@ -39,12 +39,18 @@ class SingleTaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.etTime.setOnClickListener {  }
+        binding.etDate.setOnClickListener {  }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        _binding = null
     }
 
+    //parse params from List
+    //can be task for editing
     private fun parseParams() {
         val args = requireArguments()
         if (!args.containsKey(SCREEN_MODE)) {
@@ -62,6 +68,21 @@ class SingleTaskFragment : Fragment() {
             taskId = args.getInt(TASK_ID)
         }
     }
+
+    fun showTimePickerDialog(v: View) {
+        val fragment = TimePickerFragment()
+        fragment.onSetListener = { binding.etTime.setText(it) }
+        fragment.show(parentFragmentManager, "timePicker")
+    }
+
+    fun showDatePickerDialog(v: View) {
+        val fragment = DatePickerFragment()
+        fragment.onSetListener = { binding.etDate.setText(it) }
+        fragment.show(parentFragmentManager, "datePicker")
+    }
+
+
+
 
     companion object {
 

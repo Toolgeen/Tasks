@@ -14,11 +14,13 @@ class SingleTaskViewModel(application: Application) : AndroidViewModel(applicati
 
     private val addTaskUseCase = AddTaskUseCase(repository)
     private val ediTaskUseCase = EditTaskUseCase(repository)
+    private val getOneTaskUseCase = GetOneTaskUseCase(repository)
 
+    fun getOneTask(taskId: Int) = getOneTaskUseCase(taskId)
 
     fun addTask(
         inputDescription: String?,
-        category: String?,
+        category: String,
         finishingDay: String? = null,
         finishingTime: String? = null,
         countOfRepeats: Int = Task.BASE_REPEATS_COUNT,
@@ -27,6 +29,13 @@ class SingleTaskViewModel(application: Application) : AndroidViewModel(applicati
         val description = parseDescription(inputDescription)
         val creationTime = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
             .format(Calendar.getInstance().time)
+        val deadline = validateDeadline(finishingDay, finishingTime)
+    }
+
+    private fun validateDeadline(finishingDay: String?, finishingTime: String?): String {
+        return if (finishingDay != null) {
+            finishingDay + finishingTime
+        } else ""
     }
 
     private fun parseDescription(inputDescription: String?): String {
