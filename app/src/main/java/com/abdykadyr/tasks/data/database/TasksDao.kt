@@ -21,7 +21,7 @@ interface TasksDao {
     fun getAllTasks() : LiveData<List<TaskDbModel>>
 
     @Delete(entity = TaskDbModel::class)
-    fun deleteTask(taskId: Int)
+    fun deleteTask(taskDbModel: TaskDbModel)
     //TODO test this
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

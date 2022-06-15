@@ -1,6 +1,6 @@
 package com.abdykadyr.tasks.domain.usecases
 
-import TasksRepository
+import com.abdykadyr.tasks.domain.TasksRepository
 import androidx.lifecycle.LiveData
 import com.abdykadyr.tasks.domain.entities.Task
 

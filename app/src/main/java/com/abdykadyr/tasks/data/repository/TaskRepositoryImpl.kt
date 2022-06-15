@@ -1,6 +1,6 @@
 package com.abdykadyr.tasks.data.repository
 
-import TasksRepository
+import com.abdykadyr.tasks.domain.TasksRepository
 import android.app.Application
 import androidx.lifecycle.LiveData
 import com.abdykadyr.tasks.data.database.AppDatabase
@@ -21,7 +21,7 @@ class TaskRepositoryImpl(private val application: Application) : TasksRepository
     }
 
     override fun deleteTaskUseCase(taskId: Int) {
-        tasksDao.deleteTask(taskId)
+        tasksDao.deleteTask(mapper.mapTaskEntityToDbModel(getOneTaskUseCase(taskId)))
     }
 
     override fun editTaskUseCase(task: Task) {
