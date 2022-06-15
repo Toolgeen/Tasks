@@ -19,15 +19,15 @@ class SingleTaskViewModel(application: Application) : AndroidViewModel(applicati
     private val getOneTaskUseCase = GetOneTaskUseCase(repository)
 
     private var _requiredDeadline = MutableLiveData<Boolean>(false)
-    private val requiredDeadline: LiveData<Boolean>
+    val requiredDeadline: LiveData<Boolean>
     get() = _requiredDeadline
 
     private var _requiredTimer = MutableLiveData<Boolean>(false)
-    private val requiredTimer: LiveData<Boolean>
+    val requiredTimer: LiveData<Boolean>
         get() = _requiredTimer
 
     private var _requiredRepeatsCounter = MutableLiveData<Boolean>(false)
-    private val requiredRepeatsCounter: LiveData<Boolean>
+    val requiredRepeatsCounter: LiveData<Boolean>
         get() = _requiredRepeatsCounter
 
     fun getOneTask(taskId: Int) = getOneTaskUseCase(taskId)

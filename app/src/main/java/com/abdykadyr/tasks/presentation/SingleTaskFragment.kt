@@ -40,48 +40,92 @@ class SingleTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        settingUpListeners()
+        observeViewModel()
+
+    }
+
+    private fun observeViewModel() {
+        viewModel.requiredDeadline.observe(viewLifecycleOwner) {
+            settingUpDeadlineViews(it)
+        }
+        viewModel.requiredTimer.observe(viewLifecycleOwner) {
+            settingUpTimerViews(it)
+        }
+        viewModel.requiredRepeatsCounter.observe(viewLifecycleOwner) {
+            settingUpRepeatsViews(it)
+        }
+    }
+
+    private fun settingUpListeners() {
         binding.switchDeadline.setOnCheckedChangeListener { _, b ->
             if (b) {
-                with(binding) {
-                    tvDeadlineTitle.visibility = View.VISIBLE
-                    etTime.visibility = View.VISIBLE
-                    etDate.visibility = View.VISIBLE
-                }
+                viewModel.turnOnDeadline()
             } else {
-                with(binding) {
-                    tvDeadlineTitle.visibility = View.GONE
-                    etTime.visibility = View.GONE
-                    etDate.visibility = View.GONE
-                }
+                viewModel.turnOffDeadline()
             }
         }
         binding.switchRepeats.setOnCheckedChangeListener { _, b ->
             if (b) {
-                binding.etRepeats.visibility = View.VISIBLE
-
+                viewModel.turnOnRepeatsCounter()
             } else {
-                binding.etRepeats.visibility = View.GONE
+                viewModel.turnOffRepeatsCounter()
             }
         }
 
         binding.switchTimer.setOnCheckedChangeListener { _, b ->
             if (b) {
-                binding.tvTimerTitle.visibility = View.VISIBLE
-                binding.etTimer.visibility = View.VISIBLE
-
+                viewModel.turnOnTimer()
             } else {
-                binding.tvTimerTitle.visibility = View.GONE
-                binding.etTimer.visibility = View.GONE
+                viewModel.turnOffTimer()
             }
         }
         binding.etTime.setOnClickListener { showTimePickerDialog(it) }
         binding.etDate.setOnClickListener { showDatePickerDialog(it) }
     }
 
+    private fun settingUpTimerViews(isTimerRequired: Boolean) {
+        if (isTimerRequired) {
+            binding.tvTimerTitle.visibility = View.VISIBLE
+            binding.etTimer.visibility = View.VISIBLE
+
+        } else {
+            binding.tvTimerTitle.visibility = View.GONE
+            binding.etTimer.visibility = View.GONE
+        }
+    }
+
+    private fun settingUpRepeatsViews(isRepeatsRequired: Boolean) {
+        if (isRepeatsRequired) {
+            binding.etRepeats.visibility = View.VISIBLE
+
+        } else {
+            binding.etRepeats.visibility = View.GONE
+        }
+    }
+
+    private fun settingUpDeadlineViews(isDeadlineRequired: Boolean) {
+        if (isDeadlineRequired) {
+            with(binding) {
+                tvDeadlineTitle.visibility = View.VISIBLE
+                etTime.visibility = View.VISIBLE
+                etDate.visibility = View.VISIBLE
+            }
+        } else {
+            with(binding) {
+                tvDeadlineTitle.visibility = View.GONE
+                etTime.visibility = View.GONE
+                etDate.visibility = View.GONE
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
+
 
     //parse params from List
     //can be task for editing
