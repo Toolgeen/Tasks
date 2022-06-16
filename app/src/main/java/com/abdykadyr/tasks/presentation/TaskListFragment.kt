@@ -47,5 +47,11 @@ class TaskListFragment: Fragment() {
         _binding = null
         super.onDestroy()
     }
+
+    companion object {
+
+        fun newInstance() = TaskListFragment()
+
+    }
 }
 

@@ -125,8 +125,6 @@ class SingleTaskFragment : Fragment() {
         _binding = null
     }
 
-
-
     //parse params from List
     //can be task for editing
     private fun parseParams() {
