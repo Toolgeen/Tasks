@@ -9,11 +9,11 @@ interface TasksDao {
     @Query("SELECT * FROM tasks_table WHERE  id == :taskId ")
     fun getTask(taskId: Int) : TaskDbModel
 
-    @Query("SELECT * FROM tasks_table WHERE countOfRepeats == countOfRepeatsDone " +
+    @Query("SELECT * FROM tasks_table WHERE countOfRepeats != countOfRepeatsDone " +
             "ORDER BY creationTime DESC")
     fun getActiveTasks() : LiveData<List<TaskDbModel>>
 
-    @Query("SELECT * FROM tasks_table WHERE countOfRepeats != countOfRepeatsDone " +
+    @Query("SELECT * FROM tasks_table WHERE countOfRepeats == countOfRepeatsDone " +
             "ORDER BY creationTime DESC")
     fun getDoneTasks() : LiveData<List<TaskDbModel>>
 

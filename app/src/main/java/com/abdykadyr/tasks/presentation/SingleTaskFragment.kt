@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.abdykadyr.tasks.R
 import com.abdykadyr.tasks.databinding.FragmentSingleTaskBinding
 import com.abdykadyr.tasks.domain.entities.Task
 
@@ -42,7 +45,21 @@ class SingleTaskFragment : Fragment() {
 
         settingUpListeners()
         observeViewModel()
+        settingUpSpinner()
 
+    }
+
+    private fun settingUpSpinner() {
+        ArrayAdapter.createFromResource(
+            requireActivity(),
+            R.array.spinner_values,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            binding.spinnerCategories.adapter = adapter
+        }
     }
 
     private fun observeViewModel() {
@@ -82,6 +99,12 @@ class SingleTaskFragment : Fragment() {
         }
         binding.etTime.setOnClickListener { showTimePickerDialog(it) }
         binding.etDate.setOnClickListener { showDatePickerDialog(it) }
+
+        binding.buttonConfirm.setOnClickListener {
+            viewModel.addTask(
+                binding.etDescription.text.toString(),
+                binding.spinnerCategories.selectedItem.toString()
+        ) }
     }
 
     private fun settingUpTimerViews(isTimerRequired: Boolean) {

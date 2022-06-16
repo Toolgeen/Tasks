@@ -44,6 +44,14 @@ class SingleTaskViewModel(application: Application) : AndroidViewModel(applicati
         val creationTime = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
             .format(Calendar.getInstance().time)
         val deadline = validateDeadline(finishingDay, finishingTime)
+        addTaskUseCase.invoke(Task(
+                description,
+                category,
+                creationTime,
+                plannedTime = plannedTime,
+                countOfRepeats = countOfRepeats
+            )
+        )
     }
 
     fun turnOnDeadline() {

@@ -33,9 +33,10 @@ class TaskListFragment: Fragment() {
         val taskListAdapter = TaskListAdapter()
         binding.rvTaskList.adapter = taskListAdapter
 
+
         binding.switchTasks.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked) {
-                viewModel.tasksList.invoke().observe(viewLifecycleOwner) {
+            if (isChecked) {
+                viewModel.taskList.invoke().observe(viewLifecycleOwner) {
                     taskListAdapter.submitList(it)
                 }
             }
