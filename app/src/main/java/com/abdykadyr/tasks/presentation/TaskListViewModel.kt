@@ -53,5 +53,9 @@ class TaskListViewModel(application: Application) : AndroidViewModel(application
 
     fun deleteTask(taskId: Int) = deleteTaskUseCase(taskId)
 
+    fun editTask(task: Task) {
+        deleteTaskUseCase.invoke(task.id)
+        addTaskUseCase(task)
+    }
 
 }

@@ -68,6 +68,11 @@ class TaskListFragment: Fragment() {
         taskListAdapter.onEditButtonClick = {
             launchEditFragment(it)
         }
+        taskListAdapter.onConfirmButtonClick = {
+            val oldTask = viewModel.getOneTask(it)
+            val newTask = oldTask.copy(countOfRepeatsDone = ++oldTask.countOfRepeatsDone)
+            viewModel.editTask(newTask)
+        }
         return taskListAdapter
     }
 
