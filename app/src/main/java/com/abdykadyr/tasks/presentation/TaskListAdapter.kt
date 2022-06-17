@@ -10,7 +10,6 @@ import com.abdykadyr.tasks.domain.entities.Task
 
 class TaskListAdapter: ListAdapter<Task,TaskItemViewHolder>(TaskDiffCallback()) {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskItemViewHolder {
         val binding = TaskItemBinding.inflate(LayoutInflater.from(parent.context),
         parent,

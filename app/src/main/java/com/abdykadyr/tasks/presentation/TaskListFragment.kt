@@ -36,8 +36,18 @@ class TaskListFragment: Fragment() {
 
         binding.switchTasks.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                viewModel.taskList.invoke().observe(viewLifecycleOwner) {
+                viewModel.tasksList.invoke().observe(viewLifecycleOwner) {
                     taskListAdapter.submitList(it)
+                    binding.switchDoneTasks.isChecked = false
+                }
+            }
+        }
+
+        binding.switchDoneTasks.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                viewModel.doneTasksList.invoke().observe(viewLifecycleOwner) {
+                    taskListAdapter.submitList(it)
+                    binding.switchTasks.isChecked = false
                 }
             }
         }

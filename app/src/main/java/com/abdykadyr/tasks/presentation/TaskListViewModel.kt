@@ -20,7 +20,9 @@ class TaskListViewModel(application: Application) : AndroidViewModel(application
     private val getAllTasksUseCase = GetAllTasksUseCase(repository)
     private val getOneTaskUseCase = GetOneTaskUseCase(repository)
 
-    val taskList = getActiveTasksUseCase
+    val tasksList = getActiveTasksUseCase
+
+    val doneTasksList = getDoneTasksUseCase
 
     fun getOneTask(taskId: Int) = getOneTaskUseCase(taskId)
 

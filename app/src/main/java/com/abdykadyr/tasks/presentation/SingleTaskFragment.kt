@@ -70,6 +70,13 @@ class SingleTaskFragment : Fragment() {
             settingUpTimerViews(it)
         }
         viewModel.requiredRepeatsCounter.observe(viewLifecycleOwner) {
+            binding.switchRepeats.setOnCheckedChangeListener { _, b ->
+                if (b) {
+                    viewModel.turnOnRepeatsCounter()
+                } else {
+                    viewModel.turnOffRepeatsCounter()
+                }
+            }
             settingUpRepeatsViews(it)
         }
     }
@@ -82,13 +89,7 @@ class SingleTaskFragment : Fragment() {
                 viewModel.turnOffDeadline()
             }
         }
-        binding.switchRepeats.setOnCheckedChangeListener { _, b ->
-            if (b) {
-                viewModel.turnOnRepeatsCounter()
-            } else {
-                viewModel.turnOffRepeatsCounter()
-            }
-        }
+
 
         binding.switchTimer.setOnCheckedChangeListener { _, b ->
             if (b) {
