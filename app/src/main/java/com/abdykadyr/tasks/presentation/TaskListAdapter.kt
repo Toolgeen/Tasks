@@ -10,6 +10,9 @@ import com.abdykadyr.tasks.domain.entities.Task
 
 class TaskListAdapter: ListAdapter<Task,TaskItemViewHolder>(TaskDiffCallback()) {
 
+    var onEditButtonClick: ((Int) -> Unit)? = null
+    var onDeleteButtonClick: ((Int) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskItemViewHolder {
         val binding = TaskItemBinding.inflate(LayoutInflater.from(parent.context),
         parent,
@@ -40,7 +43,8 @@ class TaskListAdapter: ListAdapter<Task,TaskItemViewHolder>(TaskDiffCallback()) 
             } else {
                 setTaskWithoutTimer(task, holder.binding)
             }
-
+            buttonEdit.setOnClickListener { onEditButtonClick?.invoke(task.id) }
+            buttonDelete.setOnClickListener { onDeleteButtonClick?.invoke(task.id) }
         }
     }
 

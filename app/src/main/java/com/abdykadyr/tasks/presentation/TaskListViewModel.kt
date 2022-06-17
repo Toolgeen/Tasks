@@ -12,6 +12,14 @@ class TaskListViewModel(application: Application) : AndroidViewModel(application
 
     private val repository = TaskRepositoryImpl(application)
 
+    private var _isTasksShown = MutableLiveData(false)
+    val isTasksShown: LiveData<Boolean>
+    get() = _isTasksShown
+
+    private var _isDoneTasksShown = MutableLiveData(false)
+    val isDoneTasksShown: LiveData<Boolean>
+        get() = _isDoneTasksShown
+
     private val addTaskUseCase = AddTaskUseCase(repository)
     private val deleteTaskUseCase = DeleteTaskUseCase(repository)
     private val ediTaskUseCase = EditTaskUseCase(repository)
@@ -19,6 +27,23 @@ class TaskListViewModel(application: Application) : AndroidViewModel(application
     private val getDoneTasksUseCase = GetDoneTasksUseCase(repository)
     private val getAllTasksUseCase = GetAllTasksUseCase(repository)
     private val getOneTaskUseCase = GetOneTaskUseCase(repository)
+
+
+    fun showTasks() {
+        _isTasksShown.value = true
+    }
+
+    fun hideTasks() {
+        _isTasksShown.value = false
+    }
+
+    fun showDoneTasks() {
+        _isDoneTasksShown.value = true
+    }
+
+    fun hideDoneTasks() {
+        _isDoneTasksShown.value = false
+    }
 
     val tasksList = getActiveTasksUseCase
 

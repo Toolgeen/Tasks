@@ -18,15 +18,15 @@ class SingleTaskViewModel(application: Application) : AndroidViewModel(applicati
     private val ediTaskUseCase = EditTaskUseCase(repository)
     private val getOneTaskUseCase = GetOneTaskUseCase(repository)
 
-    private var _requiredDeadline = MutableLiveData<Boolean>(false)
+    private var _requiredDeadline = MutableLiveData(false)
     val requiredDeadline: LiveData<Boolean>
     get() = _requiredDeadline
 
-    private var _requiredTimer = MutableLiveData<Boolean>(false)
+    private var _requiredTimer = MutableLiveData(false)
     val requiredTimer: LiveData<Boolean>
         get() = _requiredTimer
 
-    private var _requiredRepeatsCounter = MutableLiveData<Boolean>(false)
+    private var _requiredRepeatsCounter = MutableLiveData(false)
     val requiredRepeatsCounter: LiveData<Boolean>
         get() = _requiredRepeatsCounter
 
