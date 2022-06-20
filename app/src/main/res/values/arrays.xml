@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="spinner_values">
+        <item>Здоровье</item>
+        <item>Саморазвитие</item>
+        <item>Спорт</item>
+        <item>Работа</item>
+        <item>Досуг</item>
+        <item>Быт</item>
+    </string-array>
+
+</resources>

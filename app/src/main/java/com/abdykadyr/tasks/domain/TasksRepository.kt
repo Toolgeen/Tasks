@@ -1,3 +1,5 @@
+package com.abdykadyr.tasks.domain
+
 import androidx.lifecycle.LiveData
 import com.abdykadyr.tasks.domain.entities.Task
 import com.abdykadyr.tasks.domain.usecases.GetAllTasksUseCase
