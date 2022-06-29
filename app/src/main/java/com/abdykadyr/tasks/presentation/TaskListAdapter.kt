@@ -41,6 +41,7 @@ class TaskListAdapter : ListAdapter<Task, TaskItemViewHolder>(TaskDiffCallback()
             } else if (task.countOfRepeats != Task.BASE_REPEATS_COUNT) {
                 progressBar.max = task.countOfRepeats
                 tvProgress.text = task.countOfRepeats.toString()
+                progressBar.progress = task.countOfRepeatsDone
                 if (task.countOfRepeats - task.countOfRepeatsDone != Task.NO_REPEATS) {
                     buttonConfirm.visibility = View.GONE
                 }
@@ -55,9 +56,11 @@ class TaskListAdapter : ListAdapter<Task, TaskItemViewHolder>(TaskDiffCallback()
             }
             buttonIncreaseProgress.setOnClickListener {
                 onIncreaseProgressButtonClick?.invoke(task.id)
+                progressBar.progress = ++progressBar.progress
             }
             buttonDecreaseProgress.setOnClickListener {
                 onDecreaseProgressButtonClick?.invoke(task.id)
+                progressBar.progress = --progressBar.progress
             }
             buttonEdit.setOnClickListener { onEditButtonClick?.invoke(task.id) }
             buttonDelete.setOnClickListener { onDeleteButtonClick?.invoke(task.id) }

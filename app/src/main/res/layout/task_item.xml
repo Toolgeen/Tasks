@@ -65,12 +65,12 @@
             tools:text="test task - do a thing and another thing"/>
 
 
-        <ProgressBar
+        <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressBar"
             android:max="100"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            style="@style/Widget.Material3.CircularProgressIndicator"
+            android:indeterminate="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:indeterminateTint="@color/progress_bar_color"
