@@ -1,16 +1,13 @@
 package com.abdykadyr.tasks.presentation
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
-import androidx.transition.Visibility
 import com.abdykadyr.tasks.databinding.TaskItemBinding
 import com.abdykadyr.tasks.domain.entities.Task
 
-class TaskListAdapter: ListAdapter<Task,TaskItemViewHolder>(TaskDiffCallback()) {
+class TaskListAdapter : ListAdapter<Task, TaskItemViewHolder>(TaskDiffCallback()) {
 
     var onEditButtonClick: ((Int) -> Unit)? = null
     var onDeleteButtonClick: ((Int) -> Unit)? = null
@@ -19,27 +16,30 @@ class TaskListAdapter: ListAdapter<Task,TaskItemViewHolder>(TaskDiffCallback()) 
     var onDecreaseProgressButtonClick: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskItemViewHolder {
-        val binding = TaskItemBinding.inflate(LayoutInflater.from(parent.context),
-        parent,
-        false)
+        val binding = TaskItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return TaskItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TaskItemViewHolder, position: Int) {
         val task = getItem(position)
         with(holder.binding) {
+            setTaskViewToDefault(task, holder.binding)
             tvTaskCreatedDate.text = task.creationTime
             tvTaskCategory.text = task.category
             tvTaskTitle.text = task.description
             //checking finished time
-            if (task.finishingTime != null) {
-                setTaskDone(task, holder.binding)
-            } else tvTaskFinishedDate.visibility = View.GONE
+            if (task.finishingTime == null) {
+                tvTaskFinishedDate.visibility = View.GONE
+            }
 
             if (task.countOfRepeats != Task.BASE_REPEATS_COUNT) {
                 progressBar.max = task.countOfRepeats
                 tvProgress.text = task.countOfRepeats.toString()
-                if(task.countOfRepeats - task.countOfRepeatsDone != Task.NO_REPEATS) {
+                if (task.countOfRepeats - task.countOfRepeatsDone != Task.NO_REPEATS) {
                     buttonConfirm.visibility = View.GONE
                 }
             } else {
@@ -90,7 +90,19 @@ class TaskListAdapter: ListAdapter<Task,TaskItemViewHolder>(TaskDiffCallback()) 
         }
     }
 
-    private fun formatTime(time: Int) : String {
+    private fun formatTime(time: Int): String {
         return "${time / 3600}:${time / 60}:${time % 60}"
+    }
+
+    private fun setTaskViewToDefault(task: Task, binding: TaskItemBinding) {
+        with(binding) {
+            buttonEdit.visibility = View.VISIBLE
+            buttonIncreaseProgress.visibility = View.VISIBLE
+            buttonDecreaseProgress.visibility = View.VISIBLE
+            buttonConfirm.visibility = View.VISIBLE
+            buttonTimer.visibility = View.VISIBLE
+            progressBar.visibility = View.VISIBLE
+            tvProgress.visibility = View.VISIBLE
+        }
     }
 }

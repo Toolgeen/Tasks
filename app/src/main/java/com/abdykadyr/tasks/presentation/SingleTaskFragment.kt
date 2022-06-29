@@ -78,6 +78,7 @@ class SingleTaskFragment : Fragment() {
                     viewModel.turnOnRepeatsCounter()
                 } else {
                     viewModel.turnOffRepeatsCounter()
+                    binding.etRepeats.setText(R.string.base_count_of_repeats)
                 }
             }
             settingUpRepeatsViews(it)
@@ -109,12 +110,13 @@ class SingleTaskFragment : Fragment() {
                 viewModel.addTask(
                     binding.etDescription.text.toString(),
                     binding.spinnerCategories.selectedItem.toString(),
-                    countOfRepeats = binding.etRepeats.text.toString().toInt()
+                    binding.etDate.text.toString(),
+                    binding.etTime.text.toString(),
+                    binding.etRepeats.text.toString().toInt()
                 )
             } else {
                 Toast.makeText(requireContext(),"Input is not valid",LENGTH_SHORT).show()
             }
-
         }
     }
 
