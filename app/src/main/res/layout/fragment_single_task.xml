@@ -77,6 +77,8 @@
             android:id="@+id/etRepeats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/base_count_of_repeats"
+            android:inputType="numberDecimal"
             android:hint="@string/repeats" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,7 +132,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvTimerTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:inputType="time"
+        android:inputType="numberDecimal"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"/>
 

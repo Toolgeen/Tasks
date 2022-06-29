@@ -12,4 +12,5 @@
     <string name="timer_title">Необходимо потратить времени</string>
     <string name="button_confirm_title">сохранить</string>
     <string name="add_task_menu_title">добавить задачу</string>
+    <string name="base_count_of_repeats">1</string>
 </resources>

@@ -15,6 +15,8 @@ class TaskListAdapter: ListAdapter<Task,TaskItemViewHolder>(TaskDiffCallback()) 
     var onEditButtonClick: ((Int) -> Unit)? = null
     var onDeleteButtonClick: ((Int) -> Unit)? = null
     var onConfirmButtonClick: ((Int) -> Unit)? = null
+    var onIncreaseProgressButtonClick: ((Int) -> Unit)? = null
+    var onDecreaseProgressButtonClick: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskItemViewHolder {
         val binding = TaskItemBinding.inflate(LayoutInflater.from(parent.context),
@@ -46,6 +48,12 @@ class TaskListAdapter: ListAdapter<Task,TaskItemViewHolder>(TaskDiffCallback()) 
 
             if (task.plannedTime != null) {
                 tvTimer.text = formatTime(task.plannedTime)
+                buttonIncreaseProgress.setOnClickListener {
+                    onIncreaseProgressButtonClick?.invoke(task.id)
+                }
+                buttonDecreaseProgress.setOnClickListener {
+                    onDecreaseProgressButtonClick?.invoke(task.id)
+                }
             } else {
                 setTaskWithoutTimer(task, holder.binding)
             }
