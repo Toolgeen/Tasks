@@ -36,7 +36,9 @@ class TaskListAdapter : ListAdapter<Task, TaskItemViewHolder>(TaskDiffCallback()
                 tvTaskFinishedDate.visibility = View.GONE
             }
 
-            if (task.countOfRepeats != Task.BASE_REPEATS_COUNT) {
+            if (task.countOfRepeats == task.countOfRepeatsDone) {
+                setTaskDone(task, holder.binding)
+            } else if (task.countOfRepeats != Task.BASE_REPEATS_COUNT) {
                 progressBar.max = task.countOfRepeats
                 tvProgress.text = task.countOfRepeats.toString()
                 if (task.countOfRepeats - task.countOfRepeatsDone != Task.NO_REPEATS) {
