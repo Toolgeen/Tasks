@@ -1,6 +1,7 @@
 package com.abdykadyr.tasks.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,11 +78,13 @@ class TaskListFragment: Fragment() {
             val oldTask = viewModel.getOneTask(it)
             val newTask = oldTask.copy(countOfRepeatsDone = --oldTask.countOfRepeatsDone)
             viewModel.editTask(newTask)
+            Log.d("TASK_LIST_FRAGMENT", "${newTask.countOfRepeatsDone}")
         }
         taskListAdapter.onIncreaseProgressButtonClick = {
             val oldTask = viewModel.getOneTask(it)
             val newTask = oldTask.copy(countOfRepeatsDone = ++oldTask.countOfRepeatsDone)
             viewModel.editTask(newTask)
+            Log.d("TASK_LIST_FRAGMENT", "${newTask.countOfRepeatsDone}")
         }
         return taskListAdapter
     }

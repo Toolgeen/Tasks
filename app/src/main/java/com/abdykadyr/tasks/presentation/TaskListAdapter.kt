@@ -50,14 +50,14 @@ class TaskListAdapter : ListAdapter<Task, TaskItemViewHolder>(TaskDiffCallback()
 
             if (task.plannedTime != null) {
                 tvTimer.text = formatTime(task.plannedTime)
-                buttonIncreaseProgress.setOnClickListener {
-                    onIncreaseProgressButtonClick?.invoke(task.id)
-                }
-                buttonDecreaseProgress.setOnClickListener {
-                    onDecreaseProgressButtonClick?.invoke(task.id)
-                }
             } else {
                 setTaskWithoutTimer(task, holder.binding)
+            }
+            buttonIncreaseProgress.setOnClickListener {
+                onIncreaseProgressButtonClick?.invoke(task.id)
+            }
+            buttonDecreaseProgress.setOnClickListener {
+                onDecreaseProgressButtonClick?.invoke(task.id)
             }
             buttonEdit.setOnClickListener { onEditButtonClick?.invoke(task.id) }
             buttonDelete.setOnClickListener { onDeleteButtonClick?.invoke(task.id) }
