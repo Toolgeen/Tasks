@@ -24,6 +24,9 @@ interface TasksDao {
     fun deleteTask(taskDbModel: TaskDbModel)
     //TODO test this
 
+    @Update
+    fun editTask(taskDbModel: TaskDbModel)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addTask(taskDbModel: TaskDbModel)
 

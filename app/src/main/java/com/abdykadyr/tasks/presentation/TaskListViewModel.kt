@@ -49,13 +49,12 @@ class TaskListViewModel(application: Application) : AndroidViewModel(application
 
     val doneTasksList = getDoneTasksUseCase
 
-    fun getOneTask(taskId: Int) = getOneTaskUseCase(taskId)
+    private fun getOneTask(taskId: Int) = getOneTaskUseCase(taskId)
 
     fun deleteTask(taskId: Int) = deleteTaskUseCase(taskId)
 
-    fun editTask(task: Task) {
-        deleteTaskUseCase.invoke(task.id)
-        addTaskUseCase(task)
+    private fun editTask(task: Task) {
+        ediTaskUseCase.invoke(task)
     }
 
     fun increaseCounterInTask(taskId: Int) {
