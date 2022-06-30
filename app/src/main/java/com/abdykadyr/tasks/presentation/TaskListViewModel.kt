@@ -28,7 +28,6 @@ class TaskListViewModel(application: Application) : AndroidViewModel(application
     private val getAllTasksUseCase = GetAllTasksUseCase(repository)
     private val getOneTaskUseCase = GetOneTaskUseCase(repository)
 
-
     fun showTasks() {
         _isTasksShown.value = true
     }
@@ -59,8 +58,10 @@ class TaskListViewModel(application: Application) : AndroidViewModel(application
 
     fun increaseCounterInTask(taskId: Int) {
         val oldTask = getOneTask(taskId)
-        val newTask = oldTask.copy(countOfRepeatsDone = ++oldTask.countOfRepeatsDone)
-        editTask(newTask)
+        if(oldTask.countOfRepeatsDone < oldTask.countOfRepeats) {
+            val newTask = oldTask.copy(countOfRepeatsDone = ++oldTask.countOfRepeatsDone)
+            editTask(newTask)
+        }
     }
 
     fun decreaseCounterInTask(taskId: Int) {

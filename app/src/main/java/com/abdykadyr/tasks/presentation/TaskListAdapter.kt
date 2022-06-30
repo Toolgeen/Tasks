@@ -59,11 +59,11 @@ class TaskListAdapter : ListAdapter<Task, TaskItemViewHolder>(TaskDiffCallback()
 
             buttonIncreaseProgress.setOnClickListener {
                 onIncreaseProgressButtonClick?.invoke(task.id)
-                progressBar.progress = ++progressBar.progress
+                progressBar.progress = task.countOfRepeatsDone
             }
             buttonDecreaseProgress.setOnClickListener {
                 onDecreaseProgressButtonClick?.invoke(task.id)
-                progressBar.progress = --progressBar.progress
+                progressBar.progress = task.countOfRepeatsDone
             }
             buttonEdit.setOnClickListener { onEditButtonClick?.invoke(task.id) }
             buttonDelete.setOnClickListener { onDeleteButtonClick?.invoke(task.id) }
