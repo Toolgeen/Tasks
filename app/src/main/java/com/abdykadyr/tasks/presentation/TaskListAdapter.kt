@@ -40,7 +40,7 @@ class TaskListAdapter : ListAdapter<Task, TaskItemViewHolder>(TaskDiffCallback()
                 setTaskDone(task, holder.binding)
             } else if (task.countOfRepeats != Task.BASE_REPEATS_COUNT) {
                 progressBar.max = task.countOfRepeats
-                tvProgress.text = task.countOfRepeats.toString()
+                tvProgress.text = (task.countOfRepeats - task.countOfRepeatsDone).toString()
                 progressBar.progress = task.countOfRepeatsDone
                 if (task.countOfRepeats - task.countOfRepeatsDone != Task.NO_REPEATS) {
                     buttonConfirm.visibility = View.GONE

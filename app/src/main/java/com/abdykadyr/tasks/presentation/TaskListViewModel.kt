@@ -58,4 +58,18 @@ class TaskListViewModel(application: Application) : AndroidViewModel(application
         addTaskUseCase(task)
     }
 
+    fun increaseCounterInTask(taskId: Int) {
+        val oldTask = getOneTask(taskId)
+        val newTask = oldTask.copy(countOfRepeatsDone = ++oldTask.countOfRepeatsDone)
+        editTask(newTask)
+    }
+
+    fun decreaseCounterInTask(taskId: Int) {
+        val oldTask = getOneTask(taskId)
+        if (oldTask.countOfRepeatsDone > Task.NO_REPEATS) {
+            val newTask = oldTask.copy(countOfRepeatsDone = --oldTask.countOfRepeatsDone)
+            editTask(newTask)
+        }
+    }
+
 }

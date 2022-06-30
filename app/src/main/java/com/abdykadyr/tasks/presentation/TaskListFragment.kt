@@ -70,21 +70,13 @@ class TaskListFragment: Fragment() {
             launchEditFragment(it)
         }
         taskListAdapter.onConfirmButtonClick = {
-            val oldTask = viewModel.getOneTask(it)
-            val newTask = oldTask.copy(countOfRepeatsDone = ++oldTask.countOfRepeatsDone)
-            viewModel.editTask(newTask)
+            viewModel.increaseCounterInTask(it)
         }
         taskListAdapter.onDecreaseProgressButtonClick = {
-            val oldTask = viewModel.getOneTask(it)
-            val newTask = oldTask.copy(countOfRepeatsDone = --oldTask.countOfRepeatsDone)
-            viewModel.editTask(newTask)
-            Log.d("TASK_LIST_FRAGMENT", "${newTask.countOfRepeatsDone}")
+            viewModel.decreaseCounterInTask(it)
         }
         taskListAdapter.onIncreaseProgressButtonClick = {
-            val oldTask = viewModel.getOneTask(it)
-            val newTask = oldTask.copy(countOfRepeatsDone = ++oldTask.countOfRepeatsDone)
-            viewModel.editTask(newTask)
-            Log.d("TASK_LIST_FRAGMENT", "${newTask.countOfRepeatsDone}")
+            viewModel.increaseCounterInTask(it)
         }
         return taskListAdapter
     }
