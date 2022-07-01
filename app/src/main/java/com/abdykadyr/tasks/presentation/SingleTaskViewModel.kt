@@ -20,7 +20,7 @@ class SingleTaskViewModel(application: Application) : AndroidViewModel(applicati
 
     private var _requiredDeadline = MutableLiveData(false)
     val requiredDeadline: LiveData<Boolean>
-    get() = _requiredDeadline
+        get() = _requiredDeadline
 
     private var _requiredTimer = MutableLiveData(false)
     val requiredTimer: LiveData<Boolean>
@@ -37,20 +37,23 @@ class SingleTaskViewModel(application: Application) : AndroidViewModel(applicati
         category: String,
         finishingDay: String? = null,
         finishingTime: String? = null,
-        countOfRepeats: Int = Task.BASE_REPEATS_COUNT,
+        countOfRepeats: Int,
         plannedTime: Int? = null
     ) {
         val description = parseDescription(inputDescription)
         val creationTime = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
             .format(Calendar.getInstance().time)
         val deadline = validateDeadline(finishingDay, finishingTime)
-        addTaskUseCase.invoke(Task(
+        val validatedFinishingTime = deadline.ifEmpty { null }
+        addTaskUseCase.invoke(
+            Task(
                 description,
                 category,
                 creationTime,
-                plannedTime = plannedTime,
-                countOfRepeats = countOfRepeats
-            )
+                validatedFinishingTime,
+                countOfRepeats,
+                plannedTime = plannedTime
+                )
         )
     }
 
@@ -87,7 +90,6 @@ class SingleTaskViewModel(application: Application) : AndroidViewModel(applicati
     private fun parseDescription(inputDescription: String?): String {
         return inputDescription?.trim() ?: ""
     }
-
 
 
 }

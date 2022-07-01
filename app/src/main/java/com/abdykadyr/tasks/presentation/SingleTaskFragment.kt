@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.abdykadyr.tasks.R
 import com.abdykadyr.tasks.databinding.FragmentSingleTaskBinding
 import com.abdykadyr.tasks.domain.entities.Task
+import java.time.Duration
 
 class SingleTaskFragment : Fragment() {
 
@@ -23,14 +26,14 @@ class SingleTaskFragment : Fragment() {
 
     private var _binding: FragmentSingleTaskBinding? = null
     private val binding: FragmentSingleTaskBinding
-    get() = _binding ?: throw RuntimeException("FragmentSingleTaskBinding is null")
+        get() = _binding ?: throw RuntimeException("FragmentSingleTaskBinding is null")
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSingleTaskBinding.inflate(inflater,container,false)
+        _binding = FragmentSingleTaskBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -75,6 +78,7 @@ class SingleTaskFragment : Fragment() {
                     viewModel.turnOnRepeatsCounter()
                 } else {
                     viewModel.turnOffRepeatsCounter()
+                    binding.etRepeats.setText(R.string.base_count_of_repeats)
                 }
             }
             settingUpRepeatsViews(it)
@@ -102,10 +106,24 @@ class SingleTaskFragment : Fragment() {
         binding.etDate.setOnClickListener { showDatePickerDialog(it) }
 
         binding.buttonConfirm.setOnClickListener {
-            viewModel.addTask(
-                binding.etDescription.text.toString(),
-                binding.spinnerCategories.selectedItem.toString()
-        ) }
+            if (isInputTaskValid()) {
+                viewModel.addTask(
+                    binding.etDescription.text.toString(),
+                    binding.spinnerCategories.selectedItem.toString(),
+                    binding.etDate.text.toString(),
+                    binding.etTime.text.toString(),
+                    binding.etRepeats.text.toString().toInt()
+                )
+            } else {
+                Toast.makeText(requireContext(),"Input is not valid",LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun isInputTaskValid(): Boolean {
+        return !(binding.etDescription.text.toString()
+            .isEmpty() || binding.etRepeats.text.toString()
+            .isEmpty())
     }
 
     private fun settingUpTimerViews(isTimerRequired: Boolean) {
@@ -182,8 +200,6 @@ class SingleTaskFragment : Fragment() {
     }
 
 
-
-
     companion object {
 
         private const val SCREEN_MODE = "extra_mode"
@@ -200,7 +216,7 @@ class SingleTaskFragment : Fragment() {
             }
         }
 
-        fun newInstanceEditTask(taskId : Int): SingleTaskFragment {
+        fun newInstanceEditTask(taskId: Int): SingleTaskFragment {
             return SingleTaskFragment().apply {
                 arguments = Bundle().apply {
                     putString(SCREEN_MODE, MODE_EDIT)

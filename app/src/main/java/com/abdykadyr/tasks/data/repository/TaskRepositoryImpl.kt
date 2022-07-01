@@ -25,7 +25,7 @@ class TaskRepositoryImpl(private val application: Application) : TasksRepository
     }
 
     override fun editTaskUseCase(task: Task) {
-        tasksDao.addTask(mapper.mapTaskEntityToDbModel(task))
+        tasksDao.editTask(mapper.mapTaskEntityToDbModel(task))
     }
 
     override fun getActiveTasksUseCase(): LiveData<List<Task>> {

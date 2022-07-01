@@ -1,25 +1,26 @@
 package com.abdykadyr.tasks.presentation
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
-import androidx.transition.Visibility
 import com.abdykadyr.tasks.databinding.TaskItemBinding
 import com.abdykadyr.tasks.domain.entities.Task
 
-class TaskListAdapter: ListAdapter<Task,TaskItemViewHolder>(TaskDiffCallback()) {
+class TaskListAdapter : ListAdapter<Task, TaskItemViewHolder>(TaskDiffCallback()) {
 
     var onEditButtonClick: ((Int) -> Unit)? = null
     var onDeleteButtonClick: ((Int) -> Unit)? = null
     var onConfirmButtonClick: ((Int) -> Unit)? = null
+    var onIncreaseProgressButtonClick: ((Int) -> Unit)? = null
+    var onDecreaseProgressButtonClick: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskItemViewHolder {
-        val binding = TaskItemBinding.inflate(LayoutInflater.from(parent.context),
-        parent,
-        false)
+        val binding = TaskItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return TaskItemViewHolder(binding)
     }
 
@@ -30,14 +31,20 @@ class TaskListAdapter: ListAdapter<Task,TaskItemViewHolder>(TaskDiffCallback()) 
             tvTaskCategory.text = task.category
             tvTaskTitle.text = task.description
             //checking finished time
-            if (task.finishingTime != null) {
-                setTaskDone(task, holder.binding)
-            } else tvTaskFinishedDate.visibility = View.GONE
+            if (task.finishingTime == null) {
+                tvTaskFinishedDate.visibility = View.GONE
+            } else {
+                tvTaskFinishedDate.visibility = View.VISIBLE
+            }
 
-            if (task.countOfRepeats != Task.BASE_REPEATS_COUNT) {
+            if (task.countOfRepeats == task.countOfRepeatsDone) {
+                setTaskDone(task, holder.binding)
+            } else if (task.countOfRepeats != Task.BASE_REPEATS_COUNT) {
+                setTaskWithCounter(task,holder.binding)
                 progressBar.max = task.countOfRepeats
-                tvProgress.text = task.countOfRepeats.toString()
-                if(task.countOfRepeats - task.countOfRepeatsDone != Task.NO_REPEATS) {
+                tvProgress.text = (task.countOfRepeats - task.countOfRepeatsDone).toString()
+                progressBar.progress = task.countOfRepeatsDone
+                if (task.countOfRepeats - task.countOfRepeatsDone != Task.NO_REPEATS) {
                     buttonConfirm.visibility = View.GONE
                 }
             } else {
@@ -48,6 +55,15 @@ class TaskListAdapter: ListAdapter<Task,TaskItemViewHolder>(TaskDiffCallback()) 
                 tvTimer.text = formatTime(task.plannedTime)
             } else {
                 setTaskWithoutTimer(task, holder.binding)
+            }
+
+            buttonIncreaseProgress.setOnClickListener {
+                onIncreaseProgressButtonClick?.invoke(task.id)
+                progressBar.progress = task.countOfRepeatsDone
+            }
+            buttonDecreaseProgress.setOnClickListener {
+                onDecreaseProgressButtonClick?.invoke(task.id)
+                progressBar.progress = task.countOfRepeatsDone
             }
             buttonEdit.setOnClickListener { onEditButtonClick?.invoke(task.id) }
             buttonDelete.setOnClickListener { onDeleteButtonClick?.invoke(task.id) }
@@ -70,6 +86,8 @@ class TaskListAdapter: ListAdapter<Task,TaskItemViewHolder>(TaskDiffCallback()) 
             buttonDecreaseProgress.visibility = View.GONE
             buttonConfirm.visibility = View.GONE
             buttonTimer.visibility = View.GONE
+            progressBar.visibility = View.GONE
+            tvProgress.visibility = View.GONE
         }
     }
 
@@ -82,7 +100,17 @@ class TaskListAdapter: ListAdapter<Task,TaskItemViewHolder>(TaskDiffCallback()) 
         }
     }
 
-    private fun formatTime(time: Int) : String {
+    private fun setTaskWithCounter(task: Task, binding: TaskItemBinding) {
+        with(binding) {
+            buttonIncreaseProgress.visibility = View.VISIBLE
+            buttonDecreaseProgress.visibility = View.VISIBLE
+            progressBar.visibility = View.VISIBLE
+            tvProgress.visibility = View.VISIBLE
+        }
+    }
+
+    private fun formatTime(time: Int): String {
         return "${time / 3600}:${time / 60}:${time % 60}"
     }
+
 }
